@@ -1,0 +1,936 @@
+@media (min-width: 280px) {
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: medium;
+    min-height: 100vh;
+    margin: 0 auto;
+    justify-content: center;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    background: radial-gradient(circle at 15% 80%, rgb(159, 51, 1),  rgb(175, 57, 2),  rgb(193, 63, 3) 58%);
+}
+
+
+
+
+
+#user {
+  border: 1px solid none;
+  position: fixed;
+  display: flex;
+  top: 380px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  cursor:grab;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* This creates the 'filling' effect */
+  background-color: orange;
+      
+  transition: --orbit 0.5s ease;
+  animation: introUser 4s infinite linear;
+  animation: eaterHealthQrt 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+  animation: eaterHealthHlf 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+  animation: eaterHealthThreeQrt 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+
+  
+  box-sizing: border-box;
+  }
+
+
+
+
+
+ 
+  
+  
+  .eater {
+    border: 1px solid black;
+    border-radius: 50%;
+    position: fixed;
+    background-color: black;
+    display: flex;
+    top: 20px;
+    left: 30px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 30px;
+    transform: rotate(30deg);
+
+
+
+  }
+
+#germ {
+  border: 1px solid green;
+  position: fixed;
+  transition:  all 0.6s cubic-bezier(0.075, 0.885, 0.32, 1.275);                    
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  left: 80px;
+  top: 380px;
+  height: 50px;
+  background-color: green;
+  border-radius: 50%;
+  animation: introGerm 4s infinite linear;
+
+}
+
+  @keyframes introUser {
+    from {
+      position: fixed;
+      left: 450px;
+        transform: translateX(-400px);
+      }
+      
+      
+      
+      
+      to {
+        position: fixed;
+        left: 1000px;
+
+      transform: translateX(450px + 400vw);
+      }
+        }
+      
+        
+  @keyframes introGerm {
+    from {
+      position: fixed;
+      left: 550px;
+        transform: translateX(-400px);
+      }
+      
+      
+      
+      
+      to {
+        position: fixed;
+        left: 1000px;
+
+      transform: translateX(450px + 400vw);
+      }
+        }
+      
+.spinner-3d {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  display: flex;
+left: 170px;
+top: 5px;
+  border: 1px solid none;
+  background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+  border-radius: 50%;
+  perspective: 1000px;
+animation: loaderBall 3s infinite linear;
+}
+
+.spinner2-3d {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  display: flex;
+left: 140px;
+top: 60px;
+  border: 1px solid none;
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+  border-radius: 50%;
+  perspective: 1000px;
+animation: loaderBall2 3s infinite linear;
+}
+
+.spinner3-3d {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  display: flex;
+left: 70px;
+top: 60px;
+  border: 1px solid none;
+  background: radial-gradient(circle at 30% 60%, rgb(8, 65, 253), #1a76ff, rgb(55, 122, 255) 98%);
+  border-radius: 50%;
+  perspective: 1000px;
+animation: loaderBall3 3s infinite linear;
+}
+
+.spinner-3d:hover,.spinner2-3d:hover,.spinner3-3d:hover {
+  border: 1px white solid;
+}
+
+#light-point {
+  box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow 3.5s infinite linear;
+  perspective: 1000px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#light-point2 {
+  box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow2 3.5s infinite linear;
+  perspective: 1000px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+#light-point3 {
+  box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow3 3.5s infinite linear;
+  perspective: 1000px;
+  width: 0.2px;
+  height: 0.2px;
+  border-radius: 50%;
+}
+
+#light-point::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  background: rgba(255, 255, 255, 0.882);
+  border-radius: 60%;
+  filter: blur(2px);
+}
+
+@keyframes loaderBall {
+  
+from {
+  transform: rotate(0deg);
+  background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+  position: relative;
+}
+
+
+
+
+to {
+  transform: rotate(360deg);
+  background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+  position: relative;
+
+}
+  
+}
+
+
+@keyframes loaderBall2 {
+
+  from {
+  transform: rotate(0deg);
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+  position: relative;
+
+}
+
+
+
+
+to {
+  transform: rotate(360deg);
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+  position: relative;
+
+}
+}
+
+@keyframes loaderBall3 {
+
+from {
+transform: rotate(0deg);
+background: radial-gradient(circle at 30% 60%, rgb(4, 205, 255), rgb(98, 234, 255), rgb(151, 239, 255) 98%);
+position: relative;
+
+}
+
+
+
+
+to {
+transform: rotate(360deg);
+background: radial-gradient(circle at 30% 60%, rgb(4, 205, 255), rgb(98, 234, 255), rgb(151, 239, 255) 98%);
+position: relative;
+
+}
+}
+
+
+
+@keyframes glow {
+  
+  from {
+    transform: rotate(0deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  }
+  
+  to {
+    transform: rotate(360deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+
+  }
+    
+  }
+
+
+  
+@keyframes glow2 {
+  
+  from {
+    transform: rotate(0deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  }
+  
+  to {
+    transform: rotate(360deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+
+  }
+    
+  }
+
+  
+@keyframes glow3 {
+  
+  from {
+    transform: rotate(0deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  }
+  
+  to {
+    transform: rotate(360deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+
+  }
+    
+  }
+
+
+
+  .game-title {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 45px;
+    color: gold;
+    -webkit-text-stroke: azure 2px;
+    top: 250px;
+    left: 60px;
+    font-family: fantasy;
+    box-shadow: inset 15px, 5px, 10px, rgba(162, 12, 12, 0.657)
+    inset 1px, 1px,5px, rgba(17, 13, 13, 0.4);
+    animation: bounce 6s infinite linear;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(1.4);
+    }
+    50% {
+      transform: scale(0.6);
+      transform: rotateZ(0deg)
+    }
+    75% {
+      transform: scale(0.4);
+      transform: rotateZ(360deg);
+        }
+    100% {
+      transform: scale(0.3);
+    }
+
+  }
+
+  .default {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 45px;
+    color: white;
+    top: 250px;
+    font-family: fantasy;
+    box-shadow: inset 15px, 5px, 10px, rgba(162, 12, 12, 0.657)
+    inset 1px, 1px,5px, rgba(17, 13, 13, 0.4);
+    transform: rotateZ('360deg');
+    translate: 10px 20px;
+    perspective: 1000px;
+    transition: all 3s ease-in-out;
+    animation-play-state: paused;
+  }
+
+  #intro-demo-tap {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-content: center;
+    height: 44px;
+    font-size: 25px;
+    color: gold;
+    text-decoration-line: none;
+    top: 500px;
+    font-family: fantasy;
+    animation: demoTitle 3s infinite linear;
+  }
+
+  @keyframes demoTitle {
+    from {
+      transform: scale(1.5);
+    }
+
+    to {
+      transform: scale(1);
+color: gold;
+-webkit-text-stroke-color: white;
+-webkit-text-stroke-width: 2px;
+
+    }
+  }
+
+
+#intro-demo-tap:hover { 
+color: yellow;
+}
+
+
+#intro-game-tap {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-content: center;
+
+    font-size: 25px;
+    color: gold;
+    height: 44px;
+    text-decoration-line: none;
+    top: 600px;
+    font-family: fantasy;
+    animation: gameTitle 2s infinite linear;
+    animation-delay: 1s;
+
+  }
+
+
+  
+  @keyframes gameTitle {
+    from {
+      transform: scale(1.5);
+    }
+    to {
+      transform: scale(1);
+      color: gold;
+-webkit-text-stroke-color: white;
+-webkit-text-stroke-width: 2px;
+
+    }
+  }
+
+#intro-game-tap:hover { 
+color: yellow;
+}
+
+p {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 15px;
+    color: white;
+    text-decoration-line: none;
+    top: 555px;
+    font-family: fantasy;
+}
+
+
+}
+
+
+@media screen and (orientation: landscape) and (max-height: 500px)  {
+  body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: medium;
+    margin: 0 auto;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    background: radial-gradient(circle at 15% 80%, rgb(159, 51, 1),  rgb(175, 57, 2),  rgb(193, 63, 3) 58%);
+}
+
+
+
+
+#user {
+  border: 1px solid none;
+  position: fixed;
+  display: flex;
+  top: 200px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  cursor:grab;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* This creates the 'filling' effect */
+  background-color: orange;
+  transition: --orbit 0.5s ease;
+animation: introUser 4s infinite linear;
+animation: eaterHealthQrt 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+animation: eaterHealthHlf 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+animation: eaterHealthThreeQrt 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+
+
+box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+.eater {
+  border: 1px solid black;
+  border-radius: 50%;
+  position: fixed;
+  background-color: black;
+  display: flex;
+  top: 20px;
+  left: 33px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 30px;
+  transform: rotate(30deg);
+
+
+
+}
+
+#germ {
+border: 1px solid green;
+position: fixed;
+transition:  all 0.6s cubic-bezier(0.075, 0.885, 0.32, 1.275);                    
+width: 50px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto;
+left: 80px;
+top: 200px;
+height: 50px;
+background-color: green;
+border-radius: 50%;
+animation: introGerm 4s infinite linear;
+
+}
+
+@keyframes introUser {
+  from {
+    position: fixed;
+    left: 450px;
+      transform: translateX(-400px);
+    }
+    
+    
+    
+    
+    to {
+      position: fixed;
+      left: 1000px;
+
+    transform: translateX(450px + 400vw);
+    }
+      }
+    
+      
+@keyframes introGerm {
+  from {
+    position: fixed;
+    left: 550px;
+      transform: translateX(-400px);
+    }
+    
+    
+    
+    
+    to {
+      position: fixed;
+      left: 1000px;
+
+    transform: translateX(450px + 400vw);
+    }
+      }
+
+
+
+
+      
+.spinner-3d {
+  position: fixed;
+  width: 33px;
+  height: 33px;
+  display: flex;
+left: 350px;
+top: 10px;
+  border: 1px solid none;
+  background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+  border-radius: 50%;
+  perspective: 1000px;
+animation: loaderBall 3s infinite linear;
+}
+
+.spinner2-3d {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  display: flex;
+left: 340px;
+top: 40px;
+  border: 1px solid none;
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+  border-radius: 50%;
+  perspective: 1000px;
+animation: loaderBall2 3s infinite linear;
+}
+
+.spinner3-3d {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  display: flex;
+left: 300px;
+top: 30px;
+  border: 1px solid none;
+  background: radial-gradient(circle at 30% 60%, rgb(8, 65, 253), #1a76ff, rgb(55, 122, 255) 98%);
+  border-radius: 50%;
+  perspective: 1000px;
+animation: loaderBall3 3s infinite linear;
+}
+
+.spinner-3d:hover,.spinner2-3d:hover,.spinner3-3d:hover {
+  border: 1px white solid;
+}
+
+#light-point {
+  box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow 3.5s infinite linear;
+  perspective: 1000px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#light-point2 {
+  box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow2 3.5s infinite linear;
+  perspective: 1000px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+#light-point3 {
+  box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow3 3.5s infinite linear;
+  perspective: 1000px;
+  width: 0.2px;
+  height: 0.2px;
+  border-radius: 50%;
+}
+
+#light-point::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  background: rgba(255, 255, 255, 0.882);
+  border-radius: 60%;
+  filter: blur(2px);
+}
+
+@keyframes loaderBall {
+  
+from {
+  transform: rotate(0deg);
+  background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+  position: relative;
+}
+
+
+
+
+to {
+  transform: rotate(360deg);
+  background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+  position: relative;
+
+}
+  
+}
+
+
+@keyframes loaderBall2 {
+
+  from {
+  transform: rotate(0deg);
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+  position: relative;
+
+}
+
+
+
+
+to {
+  transform: rotate(360deg);
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+  position: relative;
+
+}
+}
+
+@keyframes loaderBall3 {
+
+from {
+transform: rotate(0deg);
+background: radial-gradient(circle at 30% 60%, rgb(4, 205, 255), rgb(98, 234, 255), rgb(151, 239, 255) 98%);
+position: relative;
+
+}
+
+
+
+
+to {
+transform: rotate(360deg);
+background: radial-gradient(circle at 30% 60%, rgb(4, 205, 255), rgb(98, 234, 255), rgb(151, 239, 255) 98%);
+position: relative;
+
+}
+}
+
+
+
+@keyframes glow {
+  
+  from {
+    transform: rotate(0deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  }
+  
+  to {
+    transform: rotate(360deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+
+  }
+    
+  }
+
+
+  
+@keyframes glow2 {
+  
+  from {
+    transform: rotate(0deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  }
+  
+  to {
+    transform: rotate(360deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+
+  }
+    
+  }
+
+  
+@keyframes glow3 {
+  
+  from {
+    transform: rotate(0deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+  }
+  
+  to {
+    transform: rotate(360deg);
+  top: 30%;
+  left: 5%;
+  width: 25%;
+  height: 20%;
+
+  }
+    
+  }
+
+  #title-wrapper {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    font-size: 55px;
+    left: 30%; 
+    color: white;
+    top: 50px;
+  }
+  
+  .game-title {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    font-size: 55px;
+    left: 50%; 
+ color: gold;
+    -webkit-text-stroke: azure 2px;
+    top: 50px;
+    font-family: fantasy;
+    animation: titleAnim 6s ease-in-out infinite linear;
+    transform-origin: center;
+  }
+
+  @keyframes titleAnim {
+    0% {
+      transform: translateX(-50%);
+      transform: scale(1);
+    }
+    50% {
+      transform: translateX(-50%);
+      transform: rotateZ(0deg);
+      transform: scale(1);
+
+    }
+    75% {
+      transform: translateX(-50%);
+      transform: rotateZ(360deg);
+      transform: scale(0.3);
+
+        }
+    100% {
+      transform: translateX(-50%);
+      transform: scale(0.3);
+    }
+
+  }
+
+
+  #intro-demo-tap {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 20px;
+    height: 44px;
+    color: white;
+    text-decoration-line: none;
+    top: 220px;
+    left: 100px;
+    font-family: fantasy;
+  }
+
+
+
+#intro-demo-tap:hover { 
+color: yellow;
+}
+
+
+#intro-game-tap {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    height: 44px;
+    margin: 0 auto;
+    font-size: 20px;
+    color: white;
+    text-decoration-line: none;
+    top: 220px;
+    left: 580px;
+    font-family: fantasy;
+  }
+
+
+
+#intro-game-tap:hover { 
+color: yellow;
+}
+
+p {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 15px;
+    color: white;
+    text-decoration-line: none;
+    top: 555px;
+    font-family: fantasy;
+}
+
+
+}
+
+
+  

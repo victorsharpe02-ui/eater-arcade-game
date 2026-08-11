@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' http://127.0.0.1:5500/mechanics/gameplay.html;">
+    <title>Variables</title>
+
+
+<link rel = "stylesheet" href = "/mechanics/gameplay.css">
+    <style>
+
+
+</style>
+ </head>
+ <body>
+
+    <div id="game-border">
+
+<div class = "eater" draggable="true"><div id="user"></div></div>
+
+
+
+
+
+
+
+
+<script>
+
+
+ 
+
+
+
+const home = document.createElement("form");
+
+
+
+//here we are calling the elements associated with their respective id that we will use to start this is the div for the "user"
+const user1 = document.getElementById("user");
+const clock = document.createElement("div");
+let gameDuration;
+let endTime;
+let hasEatenMicrobes = false;
+let hasJuiceAlert = false;
+let hasDrunken = false;
+let hasEatenBurger = false;
+let eatBurgerAlert = false;
+let demoEnd = false;
+let hasGermDisappeared = false;
+const currentTime= new Date().getTime() + gameDuration;
+
+let scene2 = false;
+const gameSound = new Audio('gameSoundFin.mp3');
+
+const gameEndWindow = document.createElement("form");
+const gameEndScript = document.createElement("p")
+ const gameend = document.createElement("button");
+const eaterMouth = document.createElement("div");
+
+//here upon page load a introduction and invitation to continue the demo populates in the alert after 0.6 seconds 
+
+document.addEventListener('DOMContentLoaded', (event)=> {
+    
+    setTimeout(()  => {
+  alert("Hello welcome to SharpeBros, lets do a quick demo. Tap the orange circle in the center to start.")
+    }, 600 );
+
+}) 
+
+//we make here the user clickable 
+user1.addEventListener("click", ()=>{
+
+
+    
+    alert("This is your player called the Eater. Try to drag him anywhere in the box");
+  
+      if(onclick) { once: true;
+    }
+
+
+
+});
+
+
+//here we define two variable guards with the keyword let which would mean their value can be reassigned that we will use as a method of boolean to later check if the user has or has not moved. We define both as false initially so that when. We also call the div that would be in the variable defined for the border of the game area
+
+let sceneDone = false;
+
+let isMoving = false;
+const gamering = document.getElementById('game-border');
+
+//here we are essentially saying whenever theere is an event being requested for the to be moved given the client features used to detect it's positional distance relative to all four corners of the border. Check if the guard isMoving = true and continue at every other time. When it is assigned to false do not trigger the event but check also if there was a mouseover the document and put the user back at a absolute position to the box defined by the client border distance calculation. The last event would be triggered you moved the user triggering the handleGerms function we use later. The guards help as a reference marker for the boolean logic to work in one case versus the other guarding agains misfiring or double execution given with let you are able to give it a value of both true or false for the browser to execute two different types of actions referencing the both conditions. 
+
+let startX, startY;
+user1.addEventListener('touchstart', (e) => {
+    isMoving = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchmove', (e) => {
+    if (!isMoving) return;
+    e.preventDefault();
+    user1.style.position = 'absolute';
+    const touchX = e.touches[0].clientX;
+    const touchY = e.touches[0].clientY;
+
+    user1.style.left = `${touchX - 25}px`; 
+    user1.style.top = `${touchY - 25}px`;
+    eaterMouth.id = "eaterMouth";
+    eaterMouth.style.border = "1px solid black";
+    eaterMouth.style.borderRadius = "30%";
+
+    eaterMouth.style.backgroundColor = "black";
+    eaterMouth.style.justifyContent = "center";
+eaterMouth.style.alignItems = "center";
+    eaterMouth.style.width = "27px";
+    eaterMouth.style.height = "18px";
+    eaterMouth.style.display = "flex";
+    eaterMouth.style.margin = "0 auto";
+    eaterMouth.style.position = "absolute";
+    eaterMouth.style.rotate = "60deg";
+    eaterMouth.style.top = "5px";
+    eaterMouth.style.right = "16px";
+
+    
+
+    
+    user1.appendChild(eaterMouth);
+    handleGerms(); 
+});
+
+document.addEventListener('touchend', (e) => {
+    if (!isMoving) return;
+    isMoving = false;
+    eaterMouth.style.display = "none"
+    // Turn mouse detection back on
+
+    // Calculate how far the mouse moved
+
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+
+    const movedDistance = Math.hypot(endX - startX, endY - startY);
+
+    const user = user1.getBoundingClientRect();
+    const gameArea = gamering.getBoundingClientRect();
+
+    const inBox = (
+        user.left < gameArea.right &&
+        user.right > gameArea.left &&
+        user.top < gameArea.bottom &&
+        user.bottom > gameArea.top
+    );
+    
+    // Only alert if: 1. In box, 2. Not done yet, 3. The user actually DRAGGED it (> 10px)
+    if(inBox && !sceneDone && movedDistance > 4) {
+        alert("Great now to the fun part, Eating! Tap one of the green things next.");
+        sceneDone = true;
+        gameGerms();
+    };
+
+});
+
+
+
+
+//here is the script for the germ icons where we link them in an array and use the forEach method on that variable assigned to the array create a div for every item the div is used here as it contains no effect or properties inherently and acts as a placeholder for making styles and replicating same. They are spawned in the box according to all possible computational distances within the game box using the client features at random each time with a event firing when clicking on any of them after they spawn triggered by the first move of the user.
+function gameGerms() {
+    const germos = ["germo1", "germo2", "germo3"];
+    const gameBorder = document.getElementById("game-border");
+    const gamering = gameBorder.getBoundingClientRect();
+
+    clock.style.border = "1px solid white";
+       clock.id = "timer-box";
+    clock.style.backgroundColor = "purple";
+    clock.style.color = "white";
+    clock.style.width = "60px";
+    clock.style.height = "55px";
+
+    clock.style.top = "10px";
+    clock.style.right = "16px";
+    clock.style.position = "relative";
+
+
+    document.body.appendChild(clock);
+    germos.forEach(type => {
+        const element = document.createElement("div");
+        element.classList.add(type);
+        element.style.position = "absolute";
+        
+        // Random placement
+        element.style.left = Math.random() * (gamering.width - 20) + "px";
+        element.style.top = Math.random() * (gamering.height - 20) + "px";
+        gameBorder.appendChild(element);
+
+    
+        element.addEventListener("click", () => { 
+            alert("These are the Microbes!");
+        });
+
+        // The Disappearing/Reappearing Loop
+ 
+    });
+    startCount();
+}
+
+
+
+
+
+//here we use a variable guard called scene2 with a initial value of false, below we have the if statement say in the event this variable is false, trigger the creation of the clock at the top right of the game and append it as a child of the body. Later we define other variables in this scope of the gameGerms functions that when triggered will also update the game timer in the clock starting from 2 minutes as the game durations that is used to determine the percentage of the users life given the end time to start time of the game divided and multiplied by 100 which when reaching to 25 seconds or 3/4 of the time the eaterHealth animation get's triggered and if all the time is out the final alert is sent by the browser's console that this is the end of the road.
+
+
+if (!scene2) {
+ 
+    
+
+
+
+function startCount() {
+
+    gameDuration = 120 * 1000; 
+    endTime = new Date().getTime() + gameDuration;
+
+const timer = setInterval (()=> {
+    const startTime = new Date().getTime();
+    const distance = endTime - startTime;
+
+    const percentage = Math.max(0, (distance / gameDuration) * 100);
+
+    user1.style.setProperty('--orbit', `${percentage}%`);
+
+    const totalSeconds = Math.floor(distance / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    if (percentage <=75 && percentage > 50) {
+        user1.style.animationName = "eaterHealthThreeQrt";
+        user1.style.animationDuration = "23s";
+    }
+
+    if (percentage <=50 && percentage > 25) {
+        user1.style.animationName = "eaterHealthHlf";
+        user1.style.animationDuration = "23s";
+    }
+
+    if (percentage <=25 && percentage > 0) {
+        user1.style.animationName = "eaterHealthQrt";
+        user1.style.animationDuration = "23s";
+    }
+
+    if(distance >= 0) {
+    clock.innerText = `${minutes}:${seconds <10  ? '0' : ''}${seconds}`;
+}
+
+   
+
+
+
+if (distance <= 0) {
+ clearInterval(timer);
+ clock.innerText = "0:00";
+ user1.style.setProperty('--orbit', '0%');
+alert("Look like its the end of the road for you, click here to restart the demo");
+location.reload();
+}
+}, 100 );
+}
+
+
+
+
+
+//here is the function that will spawn the juice icons it does so in a randomized way within the context of the computed distance between them and the border where they must be within given them being appended in the body as a child
+
+    
+function spawnJuice() {
+    const juices = ["juice", "juice1", "juice2"];
+    const gameyard = document.getElementById("game-border");
+    const gameborder = gameyard.getBoundingClientRect();
+juices.forEach(type=> {
+
+const juice = document.createElement("div");
+juice.classList.add(type);
+
+    
+
+
+juice.style.position = "absolute";
+const gamerborder = document.getElementById("game-border").getBoundingClientRect();
+juice.style.left = Math.random() * (gameborder.width - 30) + gameborder.left + "px";
+juice.style.top = Math.random() * (gameborder.height - 30) + gameborder.top + "px";
+document.body.appendChild(juice);
+
+function toggleJuiceVisibility() {
+            // Wait 3 seconds, then hide
+            setTimeout(() => {
+                if (juice.parentNode) { // Check if germ hasn't been consumed yet
+                    juice.style.visibility = "hidden";
+                    
+                    // Wait another 3 seconds, then show again
+                    setTimeout(() => {
+                        if (juice.parentNode) {
+                            juice.style.visibility = "visible";
+                            toggleJuiceVisibility(); // Restart the loop
+                        }
+                    }, 3000);
+                }
+            }, 3000);
+        }
+
+        toggleJuiceVisibility();
+
+});
+}
+
+
+
+//script for making food icons after spawn of juices and germs as seen here
+
+function spawnFood() {
+
+
+    const burgers = ["meal1", "meal2", "meal3"];
+    const gameyard = document.getElementById("game-border");
+    const gameborder = gameyard.getBoundingClientRect();
+burgers.forEach(type=> {
+
+const burger = document.createElement("div");
+burger.classList.add(type);
+
+
+burger.style.position = "absolute";
+
+
+burger.style.visibility = "visible";
+
+   
+burger.style.left = Math.random() * (gameborder.width - 30) + gameborder.left + "px";
+burger.style.top = Math.random() * (gameborder.height - 30) + gameborder.top + "px"
+
+document.body.appendChild(burger);
+
+function toggleMealVisibility() {
+            // Wait 3 seconds, then hide
+            setTimeout(() => {
+                if (burger.parentNode) { // Check if germ hasn't been consumed yet
+                    burger.style.visibility = "hidden";
+                    
+                    // Wait another 3 seconds, then show again
+                    setTimeout(() => {
+                        if (burger.parentNode) {
+                            burger.style.visibility = "visible";
+                            toggleMealVisibility(); // Restart the loop
+                        }
+                    }, 3000);
+                }
+            }, 3000);
+        }
+
+        toggleMealVisibility();
+
+if(burger.style.visibility === "visible" && !eatBurgerAlert) {
+    eatBurgerAlert = true;
+    setTimeout(()=> {
+    alert("These are the Burgers, eating them restores the timer an unlimited amount of times.");
+}, 3000 );
+}
+
+});
+
+}
+
+
+
+
+
+
+//script for eating of germs including chomp sound with the function attached in the event listener for the document the script begins with calling the function with the isColliding tool  in order to determine the different possible distance computable  within the game ring that the player and the germs are in contact in to trigger the sound effect and to set them to display none
+
+function isColliding(a, b) {
+    const aRect = a.getBoundingClientRect();
+    const bRect = b.getBoundingClientRect();
+
+return ! (
+    aRect.top > bRect.bottom ||
+    aRect.bottom < bRect.top ||
+    aRect.left > bRect.right ||
+    aRect.right < bRect.left 
+);
+}
+
+
+
+
+const chompSound = new Audio('Chomp Sound Effects.mp3');
+
+
+function handleGerms() {
+    const germos = document.querySelectorAll('.germo1, .germo2, .germo3');
+    const juices = document.querySelectorAll('.juice, .juice1, .juice2');
+    const meal = document.querySelectorAll('.meal1, .meal2, .meal3');
+
+    if(germos.length === 0) return;
+
+    let eatenMicrobes = Array.from(germos).every(g => g.style.display === "none");
+
+    germos.forEach(germo => {
+        if (germo.style.display !== "none" && isColliding(user1, germo)) {
+            chompSound.currentTime = 0;
+            chompSound.play();
+            germo.style.display = "none";
+
+            if(typeof endTime !== 'undefined') {
+                endTime += 5000;
+                const now = new Date().getTime();
+const maxAllowedEnd = now + (120 * 1000); // The absolute 2-minute cap from this moment
+
+// 1. Add the 5 seconds to the current endTime
+let newEndTime = endTime + 5000;
+
+// 2. Clamp it: If newEndTime is further than 2 mins away, snap it to the cap
+endTime = Math.min(newEndTime, maxAllowedEnd);
+
+            }
+            eatenMicrobes = Array.from(germos).every(g => g.style.display === "none");
+        }
+    });
+
+    
+//Here below is the code for determining if each of the juices with the collision detector function tool have a display of none after you as the eater pass over them triggering the gulp sound effect. Same procedure for the burger icons below
+
+const gulpSound = new Audio('Gulp  Sound Effect.mp3');
+
+
+juices.forEach(juice=>{
+    if(juice.style.display !== "none" && isColliding(user1, juice)) {
+
+            gulpSound.currentTime = 0;
+            gulpSound.play();
+            juice.style.display = "none";
+            endTime = new Date().getTime() + gameDuration;
+            user1.style.setProperty('--orbit', '5%');
+
+            }
+        });
+
+        
+
+  
+        
+meal.forEach(meals=>{
+    if(meals.style.display !== "none" && isColliding(user1, meals)) {
+
+            chompSound.currentTime = 0;
+            chompSound.play();
+            meals.style.display = "none";
+            endTime = new Date().getTime() + gameDuration;
+            user1.style.setProperty('--orbit', '5%');
+
+            if(meals.style.display === "none" && !hasEatenBurger && isMoving) {
+                let hasEatenBurger = true;
+                let isMoving = false;
+            setTimeout(()=> {
+               alert("Great you have eaten the Microbes, drunken the Juices and ate all the Burgers.");          
+                 }, 8000 );
+                        }       
+          
+          gamering.addEventListener("touchmove", ()=> {
+                if(!demoEnd) {
+                    demoEnd = true;
+                    setTimeout(()=> {
+                        const gameEndWindow = document.createElement("form");
+
+                        gameEndWindow.appendChild(gameEndScript);
+ gameEndWindow.appendChild(gameend); 
+
+
+                        gameEndWindow.style.border = "2px solid blue";
+ gameEndWindow.style.display = "flex";
+ gameEndWindow.style.flexDirection = "column";
+ gameEndWindow.style.textAlign = "center";
+ gameEndWindow.style.margin = "0 auto";
+ gameEndWindow.style.justifyContent = "center";
+ gameEndWindow.style.alignSelf = "center";
+ gameEndWindow.style.alignItems = "center";
+ gameEndWindow.style.width = "500px";
+ gameEndWindow.style.height = "150px";
+ gameEndWindow.style.backgroundColor = "azure";
+ gameEndWindow.style.position = "fixed"; 
+gameEndWindow.style.top = "50%";
+gameEndWindow.style.left = "50%";
+ gameEndWindow.style.transform = "translate(-50%, -50%)";
+ gameEndWindow.id = "game-over-screen";
+
+
+ gameEndWindow.action = '/mechanics/gamemobile.html?';
+ gameEndWindow.target = '_blank';
+ gameEndWindow.method = 'get';
+ gameEndWindow.style.border = "2px solid blue";
+ gameEndWindow.style.display = "flex";
+ gameEndWindow.style.flexDirection = "column";
+ gameEndWindow.style.textAlign = "center";
+ gameEndWindow.style.margin = "0 auto";
+ gameEndWindow.style.justifyContent = "center";
+ gameEndWindow.style.alignSelf = "center";
+ gameEndWindow.style.alignItems = "center";
+ gameEndWindow.style.width = "500px";
+ gameEndWindow.style.height = "150px";
+ gameEndWindow.style.backgroundColor = "azure";
+ gameEndWindow.style.position = "fixed"; 
+gameEndWindow.style.top = "50%";
+gameEndWindow.style.left = "50%";
+ gameEndWindow.style.transform = "translate(-50%, -50%)";
+ gameEndWindow.style.zIndex = "1000";
+ gameEndScript.textContent = "Looks like you completed the demo click below to play the real game!";
+gameEndScript.style.fontSize = "20px";
+
+gameEndScript.style.position = "inherit";
+
+
+gameEndScript.style.margin = "inherit";
+
+gameEndScript.style.padding = "40px";
+
+gameend.style.margin ="0 auto";
+
+gameend.style.position ="inherit";
+
+gameend.style.top ="110px";
+gameend.style.cursor = "pointer";
+gameend.style.padding = "10px 20px";
+gameend.type = "submit";
+gameend.innerText = "Restart";
+gameend.id = "game-over";
+
+
+
+
+
+
+ document.body.appendChild(gameEndWindow);
+                    gameSound.currentTime = 0;
+                    gameSound.play();
+                }, 10000 );
+                }
+          }) 
+                    }
+            
+        });
+
+
+
+        //here we are setting two conditions that are to be met, the first being linked to all items starting with g from the germos array  having a display of none within the handleGerms functions  The other is whether the guard for this is  false. It will first trigger the alert for  the microbes after setting the guard to true. This is within a setTimeout just as the second alert that uses the guard for the juices . Prior to the second alert the spawnJuice function must run.
+
+    if (eatenMicrobes && !hasEatenMicrobes) {
+        hasEatenMicrobes = true;
+        setTimeout(() => {
+            alert("Hooray, you ate all the Microbes!");
+            spawnJuice(3);
+
+            setTimeout(() => {
+                if (!hasJuiceAlert) {
+                    alert("These are Juices, they reset the timer only two times. Try drinking them.");
+                    hasJuiceAlert = true;
+                }
+
+                    setTimeout(()=>{
+                        if(!hasDrunken) {
+            alert("Awesome your doing great. However there is one last type of edible.")
+                hasDrunken = true;
+                spawnFood(3);
+                        }
+            }, 3500);
+        }, 500);
+    }, 5000);
+    }
+}
+
+
+
+
+ 
+
+
+//event listener for the handleGerms function should be right at the end of that function as seen here.
+
+    
+
+document.addEventListener("mousemove", (e) => {
+    handleGerms();
+});
+
+// Now this will execute because the script isn't broken above
+
+
+
+
+//timer alert
+
+
+let hasAlreadyShownTimerAlert = false;
+clock.addEventListener("mouseenter", ()=>{
+    if(!hasAlreadyShownTimerAlert) {
+alert("This on your right is the timer. eat before you die!");
+   let hasAlreadyShownTimerAlert = true;
+}
+
+});
+
+
+
+
+
+    </script>
+ </body>
+ 
+</html>
+
+
+
+

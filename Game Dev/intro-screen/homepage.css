@@ -1,0 +1,311 @@
+
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: medium;
+  min-height: 100%;
+  margin: 0 auto;
+  width: 100%;
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+}
+
+
+
+
+
+
+
+
+    
+.spinner-3d {
+position: relative;
+width: 200px;
+height: 200px;
+display: flex;
+left: 950px;
+border: 1px solid none;
+background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+border-radius: 50%;
+perspective: 1000px;
+animation: loaderBall 3s infinite linear;
+}
+
+.spinner2-3d {
+position: relative;
+width: 100px;
+height: 100px;
+display: flex;
+left: 890px;
+top: -80px;
+border: 1px solid none;
+background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+border-radius: 50%;
+perspective: 1000px;
+animation: loaderBall2 3s infinite linear;
+}
+
+.spinner3-3d {
+position: relative;
+width: 60px;
+height: 60px;
+display: flex;
+left: 1140px;
+top: -120px;
+border: 1px solid none;
+background: radial-gradient(circle at 30% 60%, rgb(8, 65, 253), #1a76ff, rgb(55, 122, 255) 98%);
+border-radius: 50%;
+perspective: 1000px;
+animation: loaderBall3 3s infinite linear;
+}
+
+.spinner-3d:hover,.spinner2-3d:hover,.spinner3-3d:hover {
+border: 1px white solid;
+}
+
+#light-point {
+box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow 3.5s infinite linear;
+perspective: 1000px;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+}
+
+#light-point2 {
+box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow2 3.5s infinite linear;
+perspective: 1000px;
+width: 15px;
+height: 15px;
+border-radius: 50%;
+}
+
+#light-point3 {
+box-shadow: inset -5px, 5px, 10px, rgba(0, 0, 0, 0.4)
+inset 10px, 10px, 15px, rgba(255, 255, 255, 0.4);
+animation: glow3 3.5s infinite linear;
+perspective: 1000px;
+width: 0.2px;
+height: 0.2px;
+border-radius: 50%;
+}
+
+#light-point::after {
+content: "";
+position: absolute;
+top: 30%;
+left: 5%;
+width: 25%;
+height: 20%;
+background: rgba(255, 255, 255, 0.882);
+border-radius: 60%;
+filter: blur(2px);
+}
+
+@keyframes loaderBall {
+
+from {
+transform: rotate(0deg);
+background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+position: relative;
+}
+
+
+
+
+to {
+transform: rotate(360deg);
+background: radial-gradient(circle at 30% 60%, rgb(255, 255, 255), rosybrown, red 98%);
+position: relative;
+
+}
+
+}
+
+
+@keyframes loaderBall2 {
+
+from {
+transform: rotate(0deg);
+background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+position: relative;
+
+}
+
+
+
+
+to {
+transform: rotate(360deg);
+background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+position: relative;
+
+}
+}
+
+@keyframes loaderBall3 {
+
+from {
+transform: rotate(0deg);
+background: radial-gradient(circle at 30% 60%, rgb(4, 205, 255), rgb(98, 234, 255), rgb(151, 239, 255) 98%);
+position: relative;
+
+}
+
+
+
+
+to {
+transform: rotate(360deg);
+background: radial-gradient(circle at 30% 60%, rgb(4, 205, 255), rgb(98, 234, 255), rgb(151, 239, 255) 98%);
+position: relative;
+
+}
+}
+
+
+
+@keyframes glow {
+
+from {
+  transform: rotate(0deg);
+top: 30%;
+left: 5%;
+width: 25%;
+height: 20%;
+}
+
+to {
+  transform: rotate(360deg);
+top: 30%;
+left: 5%;
+width: 25%;
+height: 20%;
+
+}
+  
+}
+
+
+
+@keyframes glow2 {
+
+from {
+  transform: rotate(0deg);
+top: 30%;
+left: 5%;
+width: 25%;
+height: 20%;
+}
+
+to {
+  transform: rotate(360deg);
+top: 30%;
+left: 5%;
+width: 25%;
+height: 20%;
+
+}
+  
+}
+
+
+@keyframes glow3 {
+
+from {
+  transform: rotate(0deg);
+top: 30%;
+left: 5%;
+width: 25%;
+height: 20%;
+}
+
+to {
+  transform: rotate(360deg);
+top: 30%;
+left: 5%;
+width: 25%;
+height: 20%;
+
+}
+  
+}
+
+#game-title {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 150px;
+  color: antiquewhite;
+  top: -180px;
+  font-family: fantasy;
+}
+
+#intro-tap {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 28px;
+  color: antiquewhite;
+  text-decoration-line: none;
+  top: 400px;
+  left: 200px;
+  font-family: fantasy;
+}
+
+#intro-tap::after {
+
+
+  color: rosybrown;
+
+
+
+}
+
+#intro-tap:hover { 
+color: yellow;
+}
+
+
+
+
+#intro-game-tap:hover { 
+color: yellow;
+}
+
+
+#intro-game-tap {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  height: 44px;
+  margin: 0 auto;
+  font-size: 28px;
+  color: white;
+  text-decoration-line: none;
+  top: 400px;
+  left: 880px;
+  font-family: fantasy;
+}
+
+
+
+#intro-game-tap:hover { 
+color: yellow;
+}
+
+p {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 50px;
+  color: white;
+  text-decoration-line: none;
+  top: 425px;
+  left: 646px;
+  font-family: fantasy;
+}

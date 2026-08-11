@@ -1,0 +1,618 @@
+#game-container {
+  width: 95vw;
+  height: 70vh;
+  max-width: 900px;
+  position: fixed;
+  touch-action: none;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#game-border {
+    width: 95vw;
+    height: 70vh;
+    max-width: 900px;
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+@media (min-width: 288px) {
+#game-border {
+    height: 600px;
+    width: 80vw;
+
+
+}
+
+
+
+#game-over-screen {
+  border: 2px solid white;
+display: none;
+flex-direction:  column;
+text-align: center !important;
+font-size: 16px;
+justify-content:  center !important;
+align-items:  center !important;
+margin: 0 !important;
+width: 250px !important;
+height:  100px;
+padding: 30px;
+background-color: plum;
+position:  fixed; 
+top: 320px !important;
+left: 190px !important;
+transform: translate(-50%, -50%);
+z-index: 9999;
+}
+
+
+#game-over {
+  border: 2px solid white;
+  border-radius: 4%;
+display: none;
+flex-direction:  column;
+text-align: center;
+font-size: 14px;
+margin: 0 auto;
+justify-content:  center;
+align-items:  center;
+background-color: white;
+position:  fixed; 
+top: 130px;
+padding: 10px;
+left: 155px;
+width: 50px;
+height: 12px;
+content: "Restart";
+transform: translate(-50%, -50%);
+z-index: 9999;
+}
+
+}
+
+
+
+
+@property --orbit {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 100%;
+  }
+
+
+body {
+    background:linear-gradient(45deg, rgba(209, 7, 195, 0.4),rgb(129, 10, 189),rgb(237, 2, 112));
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+#user {
+border: 1px solid orange;
+position: relative;
+width: 50px;
+display: flex;
+top: 250px;
+margin: 0 auto;
+justify-content: center;
+align-items: center;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+cursor: pointer;
+/* This creates the 'filling' effect */
+background: conic-gradient(orange var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+    
+transition: --orbit 0.5s ease;
+animation: eaterHealthQrt 15s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+animation: eaterHealthHlf 18s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+animation: eaterHealthThreeQrt 17s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+
+box-sizing: border-box;
+}
+
+
+@keyframes eaterHealthQrt {
+    from {
+        background: conic-gradient(red var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+    
+transition: --orbit 0.5s ease;
+    }
+
+        to {
+          background: conic-gradient(red var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+    
+transition: --orbit 0.5s ease;
+    
+}
+
+from {
+  background: conic-gradient(red var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+
+transition: --orbit 0.5s ease;
+}
+
+  to {
+    background: conic-gradient(red var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+    
+transition: --orbit 0.5s ease;
+
+}
+
+from {
+  background: conic-gradient(red var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+
+transition: --orbit 0.5s ease;
+}
+
+  to {
+    background: conic-gradient(red var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+    
+    transition: --orbit 0.5s ease;
+}
+}
+
+
+@keyframes eaterHealthHlf {
+  from {
+      background: conic-gradient(rgba(249, 72, 72, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+transition: --orbit 0.5s ease;
+  }
+
+      to {
+        background: conic-gradient(rgba(249, 72, 72, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+        transition: --orbit 0.5s ease;
+  
+}
+
+from {
+  background: conic-gradient(rgba(249, 72, 72, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+}
+
+to {
+  background: conic-gradient(rgba(249, 72, 72, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+
+}
+
+from {
+  background: conic-gradient(rgba(249, 72, 72, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+}
+
+to {
+  background: conic-gradient(rgba(249, 72, 72, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+
+
+}
+}
+
+@keyframes eaterHealthThreeQrt {
+  from {
+        background: conic-gradient(rgba(255, 130, 130, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+transition: --orbit 0.5s ease;
+  }
+
+      to {
+        background: conic-gradient(rgba(255, 130, 130, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+        transition: --orbit 0.5s ease;
+  
+}
+
+from {
+  background: conic-gradient(rgba(255, 130, 130, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+}
+
+to {
+  background: conic-gradient(rgba(255, 130, 130, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+
+}
+
+from {
+  background: conic-gradient(rgba(255, 130, 130, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+}
+
+to {
+  background: conic-gradient(rgba(255, 130, 130, 0.672) var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+  
+  transition: --orbit 0.5s ease;
+
+
+}
+}
+
+#game-border {
+  border: 1px solid white;
+  border-radius: 50%;
+
+  position: relative;
+  overflow: hidden;
+  width: 500px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  margin-bottom: 200px;
+  top: 150px;
+  height: 350px;
+  z-index: 1;
+
+}
+
+
+.germo1, .germo2, .germo3, .germo4 {
+  border: 1px solid green;
+  position: absolute;
+  transition:  all 0.6s cubic-bezier(0.075, 0.885, 0.32, 1.275);
+  opacity: 0;                       
+  pointer-events: none;        
+  width: 50px;
+  display: flex;
+  margin: 0 auto;
+  left: 20px;
+  top: 150px;
+  height: 50px;
+  background-color: green;
+  border-radius: 50%;
+
+}
+
+#germMouth {
+  border: 1px solid black;
+  position: fixed;
+  border-radius: 50%;
+  background-color: black;
+  display: flex;
+  top: 21px;
+  left: 5px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 25px;
+
+}
+
+
+
+/* Optional: Different entry points based on type */
+.germo1 { transform: translateX(-150px); } /* Slides from left */
+.germo2 { transform: translateY(-150px); } /* Slides from top */
+.germo3 { transform: translateX(180px);  } /* Slides from right */
+
+
+.slide-in {
+opacity: 1 !important;
+transform: translate(0, 0) !important;
+}
+
+
+#game-over-screen {
+  box-shadow: 0, 0, 30px, 30px white;
+}
+
+
+
+.juice, .juice1, .juice2 {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    width: 20px;
+    display: flex;
+    margin: 0 auto;
+    left: 20px;
+    position: absolute;
+    pointer-events: none;        
+
+    transition:  all 0.6s cubic-bezier(0.075, 0.885, 0.32, 1.275);
+    top: 150px;
+    height: 40px;
+    background-color: red;
+    box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.7);
+}
+
+
+.juice { transform: translateX(-150px); } /* Slides from left */
+.juice1 { transform: translateY(-150px); } /* Slides from top */
+.juice2 { transform: translateX(180px);  } /* Slides from right */
+
+
+.slide-in {
+opacity: 1 !important;
+transform: translate(0, 0) rotate(360) !important;
+}
+
+
+
+
+
+.meal1, .meal2, .meal3 {
+    border-top: 15px solid sandybrown;
+    border-bottom: 15px solid sandybrown;
+    border-radius: 30%;
+    width: 40px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    position: relative;
+  align-items: center;
+
+    background-image: linear-gradient(180deg, green, saddlebrown, brown, orange);
+    visibility: hidden;
+
+    transition:  all 0.6s cubic-bezier(0.075, 0.885, 0.32, 1.275);
+    height: 5px;
+    top: -100px;
+    background-color: white;
+    box-shadow: 0 0 15px 5px rgba(255, 162, 0, 0.7);
+
+  }
+
+
+  .meal1 { transform: translateX(-150px); } /* Slides from left */
+.meal2 { transform: translateY(-150px); } /* Slides from top */
+.meal3 { transform: translateX(180px);  } /* Slides from right */
+
+
+.slide-in {
+opacity: 1 !important;
+transform: translate(0, 0) rotate(360) !important;
+}
+
+.germ-xplode {
+
+  width: 40px !important;
+  height: 40px !important;
+  background-color: rgba(251, 117, 7, 0.902) !important;
+  box-shadow:  inset 0 0  rgba(255, 71, 5, 0.7), inset 0 0 rgba(250, 96, 0, 0.7) !important;
+}
+
+
+.damage-flash{
+  width: 50px !important;
+  height: 50px !important;
+
+
+    background-color: bisque !important;
+    box-shadow:  inset 0 0  rgba(255, 255, 255, 0.7), inset 0 0 rgba(255, 193, 22, 0.7);
+
+  }
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  #game-border {
+    height: 60vh;
+    width: 60vh;
+    max-width: none;
+    top: 20px;
+    margin-bottom: 60px;
+  }
+
+
+
+  
+#game-over-screen {
+  border: 2px solid white;
+display: none;
+flex-direction:  column;
+text-align: center !important;
+font-size: 18px;
+justify-content:  center !important;
+align-items:  center !important;
+margin: 0 !important;
+width: 400px !important;
+height:  100px;
+padding: 10px;
+background-color: plum;
+position:  fixed; 
+top: 140px !important;
+left: 400px !important;
+transform: translate(-50%, -50%);
+z-index: 9999;
+}
+
+
+#game-over {
+  border: 2px solid white;
+  border-radius: 4%;
+display: none;
+flex-direction:  column;
+text-align: center;
+font-size: 14px;
+margin: 0 auto;
+justify-content:  center;
+align-items:  center;
+background-color: white;
+position:  fixed; 
+top: 100px;
+padding: 10px;
+left: 205px;
+width: 50px;
+height: 12px;
+content: "Restart";
+transform: translate(-50%, -50%);
+z-index: 9999;
+}
+
+#timer-box {
+
+  border: 1px solid white;
+background-color:  purple;
+color: white;
+width: 60px !important;
+height: 55px !important;
+
+top: 10px !important;
+right: 355px !important;
+position: relative;
+
+}
+}
+
+#timer-box {
+display: none;
+  border: 1px solid white;
+background-color:  purple;
+color: white;
+width: 60px;
+height: 55px;
+
+top: 10px;
+right: 155px;
+position: relative;
+
+}
+
+
+  
+#home-icon {
+  display: flex;
+    border: 1px solid white;
+    border-radius: 50%;
+  background-color:  rgb(0, 183, 255);
+  color: white;
+  width: 60px;
+  height: 55px;
+
+  top: 600px;
+  right: 90px;
+  position: relative;
+  
+  }
+
+  #home-button {
+
+display: flex;
+position: relative;
+right: 2px;
+width: 55px;
+height: 35px;
+top: 10px;
+
+}
+
+#home-icon:hover {
+display: flex;
+border:  2px solid yellow;
+}
+
+#home-button-text {
+
+display: flex;
+position: relative;
+color: white;
+
+justify-content: center;    
+align-content: center;
+vertical-align: center;
+margin: 0 auto;
+top: 18px;
+right: -5px;
+}
+  
+
+
+#game-volume-rangebar {
+  display: flex;
+  position: absolute;
+  margin: 0 auto;
+  top: 10px;
+  right: 1px;
+  width: 200px;
+  height: 10px;
+  text-align: left;
+  border: 2px solid purple;
+  padding: 10px;
+  background-color: purple;
+
+border-radius: 10%;
+}
+
+#volume-progress {
+  display: flex;
+  position: absolute;
+  margin: 0 auto;
+  z-index: 0;
+  bottom: 7px;
+  left: 20px;
+  height: 10px;
+  text-align: left;
+  border: 2px solid white;
+  background-color:  white;
+  z-index: 1;
+  width: inherit;
+  border-radius: 10%;
+
+}
+
+#volume-progress:hover {
+  display: flex;
+  position: absolute;
+  margin: 0 auto;
+  z-index: 0;
+  bottom: 7px;
+  left: 20px;
+  height: 10px;
+  text-align: left;
+  border: 2px solid blue;
+  background-color:  white;
+  z-index: 1;
+  border-radius: 10%;
+}
+
+#volume {
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  top: 520px;
+  right: 940px;
+  text-align: left;
+}
+  
+
+#animation-effect {
+  display: flex;
+  margin: 0 auto;
+  justify-self: center;
+  border: 1px solid purple;
+  border-radius: 50%;
+  padding: 20px;
+  animation: spin1 3s cubic-bezier() 0s infinite linear;
+  background: radial-gradient(circle at 30% 60%, rgb(107, 3, 125), rgb(58, 0, 105), rgb(63, 32, 243) 98%);
+position: relative;
+}
+
+@keyframes spin1 {
+  
+  50% {
+    transform: rotateX('0deg');  }
+
+  50% {
+    transform: rotateX('360deg');
+  }
+}

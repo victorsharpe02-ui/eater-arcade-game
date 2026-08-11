@@ -1,0 +1,249 @@
+@property --orbit {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 100%;
+  }
+
+
+body {
+    background:linear-gradient(45deg, rgb(0, 0, 0, 0.4),rgb(0,25,90),rgb(50, 50,100));
+    background-repeat: none;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+}
+
+
+#user {
+border: 1px solid orange;
+position: relative;
+width: 50px;
+display: flex;
+top: 250px;
+margin: 0 auto;
+justify-content: center;
+align-items: center;
+cursor:grab;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+/* This creates the 'filling' effect */
+background: conic-gradient(orange var(--orbit), transparent 0), rgba(255, 165, 0, 0.2); 
+    
+transition: --orbit 0.5s ease;
+animation: eaterHealthQrt 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+animation: eaterHealthHlf 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+animation: eaterHealthThreeQrt 23s cubic-bezier(0.075, 0.82, 0.165, 1) infinite linear;
+
+box-sizing: border-box;
+}
+
+
+
+#eaterMouth {
+
+    border: 1px solid black;
+    border-radius: 50%;
+    position: fixed;
+    background-color: black;
+    display: flex;
+    top: 20px;
+    left: 33px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 30px;
+    transform: rotate(30deg);
+  
+  
+  
+}
+
+@keyframes eaterHealthQrt {
+    100% {
+        background: conic-gradient(red var(--orbit)), rgba(255, 165, 0, 0.2); 
+    }
+
+}
+
+
+@keyframes eaterHealthHlf {
+
+      100% {
+          background: conic-gradient(hsl(28, 100%, 50%) var(--orbit)), rgba(255, 165, 0, 0.2); 
+  
+          transition: --orbit 0.5s ease;
+      
+  
+}
+}
+
+@keyframes eaterHealthThreeQrt {
+  100% {
+      background: conic-gradient(#ffa83d var(--orbit)), rgba(255, 165, 0, 0.2); 
+  
+transition: --orbit 0.5s ease;
+  }
+
+    
+}
+
+#game-border {
+    border: 1px solid white;
+    position: relative;
+    width: 750px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    margin-bottom: 200px;
+    top: 150px;
+    height: 400px;
+    z-index: 1;
+}
+
+
+.germo1 {
+    border: 1px solid green;
+    position: relative;
+    width: 40px;
+    display: flex;
+    margin: 0 auto;
+    left: 20px;
+    top: 150px;
+    height: 40px;
+    background-color: green;
+    border-radius: 50%;
+
+}
+
+
+.germo2 {
+    border: 1px solid green;
+    position: relative;
+    width: 40px;
+    display: flex;
+    margin: 0 auto;
+    left: 20px;
+    top: 150px;
+    height: 40px;
+    background-color: green;
+    border-radius: 50%;
+
+}
+
+
+.germo3{
+    border: 1px solid green;
+    position: relative;
+    width: 40px;
+    display: flex;
+    margin: 0 auto;
+    left: 20px;
+    top: 150px;
+    height: 40px;
+    background-color: green;
+    border-radius: 50%;
+
+}
+
+
+
+
+
+
+.juice{
+    border: 1px solid white;
+    width: 20px;
+    display: flex;
+    margin: 0 auto;
+    left: 20px;
+    position: absolute;
+
+    top: 150px;
+    height: 40px;
+    background-color: red;
+}
+
+
+
+
+
+.juice1{
+    border: 1px solid white;
+    width: 20px;
+    display: flex;
+    margin: 0 auto;
+    position: absolute;
+    left: 20px;
+    top: 150px;
+    height: 40px;
+    background-color: red;
+}
+
+
+.juice2 {
+    border: 1px solid white;
+    width: 20px;
+    display: flex;
+    margin: 0 auto;
+    position: absolute;
+
+    left: 20px;
+    top: 150px;
+    height: 40px;
+    background-color: red;
+}
+
+
+.meal1 {
+    border-top: 15px solid sandybrown;
+    border-bottom: 15px solid sandybrown;
+    border-radius: 30%;
+    width: 40px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    position: relative;
+  align-items: center;
+    height: 5px;
+    top: -100px;
+    background-image: linear-gradient(180deg, green, saddlebrown, brown, orange);
+    visibility: hidden;
+  }
+
+  .meal2 {
+    border-top: 15px solid sandybrown;
+    border-bottom: 15px solid sandybrown;
+    border-radius: 30%;
+    width: 40px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    position: relative;
+  align-items: center;
+    height: 5px;
+    top: -100px;
+    background-image: linear-gradient(180deg, green, saddlebrown, brown, orange);
+    visibility: hidden;
+
+  }
+
+  .meal3 {
+    border-top: 15px solid sandybrown;
+    border-bottom: 15px solid sandybrown;
+    border-radius: 30%;
+    width: 40px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    position: relative;
+  align-items: center;
+    height: 5px;
+    top: -100px;
+    background-image: linear-gradient(180deg, green, saddlebrown, brown, orange);
+    visibility: hidden;
+
+  }
+

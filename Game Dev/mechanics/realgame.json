@@ -1,0 +1,21 @@
+{
+    "name": "Germ Eater Game",
+    "short_name": "GermEater",
+    "start_url": "/mechanics/gamemobile.html",
+    "display": "standalone",
+    "background_color": "#800080",
+    "theme_color": "#800080",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "mechanics/germGameappIcon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "mechanics/ScaledGameHomePage.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+}

@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+<html lang="es-SP">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Content-Security-Policy" content="http://127.0.0.1:5500/mechanics/gameplay.html;">
+    <title>Variables</title>
+
+
+<link rel = "stylesheet" href = "/mechanics/realgame.css">
+    <style>
+
+
+</style>
+ </head>
+ <body>
+
+    <div id="game-border">
+
+<div class = "eater" draggable="true"><div id="user"></div></div>
+
+
+    </div>
+
+
+    <audio id="game" src="gameSoundFin.mp3"></audio>
+
+   <div id="game-volume-rangebar" title="game-vol" role="slider" 
+   aria-label="volume"
+   aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+   tabindex="0">
+   
+   
+   <br><br>Volume<div id="volume-progress" style="width: 1px;"></div></div>
+
+
+
+
+<script>
+
+
+ 
+
+
+
+
+
+
+//here we are calling the elements associated with their respective id that we will use to start this is the div for the "user"
+const user1 = document.getElementById("user");
+const clock = document.createElement("div");
+const home = document.createElement("form");
+
+
+
+let gameDuration;
+let endTime;
+let percentage;
+let distance;
+let hasEatenMicrobes = false;
+let hasJuiceAlert = false;
+let hasDrunken = false;
+let hasEatenBurger = false;
+let eatBurgerAlert = false;
+let demoEnd = false;
+let hasGermDisappeared = false;
+const chompSound = new Audio('Chomp Sound Effects.mp3');
+const gulpSound = new Audio('Gulp  Sound Effect.mp3');
+
+let scene2 = false;
+const gameSound = new Audio('gameSoundFin.mp3');
+
+const eaterMouth = document.createElement("div");
+
+
+ 
+
+ const viewport = document.querySelector('meta[name="viewport"]');
+
+ const gameBorder = document.getElementById("game-border");
+ const PopSound = new Audio("Popsound.mp3");
+ let sceneDone = false;
+
+let isMoving = false;
+let juiceGlowChecker = false;
+let removeGerms = true;
+let removeGameSound = true;
+const gamering = document.getElementById('game-border');
+
+const germos = document.querySelectorAll('.germo1');
+const burgers = document.querySelectorAll('.meal');
+
+const gameEndWindow = document.createElement("form");
+const gameEndScript = document.createElement("p")
+ const gameend = document.createElement("button");
+
+
+ const recordWindow = document.createElement("form");
+ const recordScript = document.createElement("p");
+
+
+
+//here upon page load a introduction and invitation to continue the demo populates in the alert after 0.6 seconds 
+
+
+document.addEventListener('DOMContentLoaded', (event)=> {
+
+    startCount();
+    startGame();
+
+
+});
+//we make here the user clickable 
+
+
+
+//here we define two variable guards with the keyword let which would mean their value can be reassigned that we will use as a method of boolean to later check if the user has or has not moved. We define both as false initially so that when. We also call the div that would be in the variable defined for the border of the game area
+
+
+
+
+//here we are essentially saying whenever theere is an event being requested for the to be moved given the client features used to detect it's positional distance relative to all four corners of the border. Check if the guard isMoving = true and continue at every other time. When it is assigned to false do not trigger the event but check also if there was a mouseover the document and put the user back at a absolute position to the box defined by the client border distance calculation. The last event would be triggered you moved the user triggering the handleGerms function we use later. The guards help as a reference marker for the boolean logic to work in one case versus the other guarding agains misfiring or double execution given with let you are able to give it a value of both true or false for the browser to execute two different types of actions referencing the both conditions. 
+
+user1.addEventListener('mousedown', (e) => {
+    isMoving = true;
+    startX = e.clientX;
+    startY = e.clientY;
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isMoving) return;
+    user1.style.position = 'absolute';
+    user1.style.left = `${e.clientX - 25}px`; 
+    user1.style.top = `${e.clientY - 25}px`;
+user1.style.background = "orange";
+eaterMouth.id = "eaterMouth";
+eaterMouth.style.border = "1px solid black";
+    eaterMouth.style.borderRadius = "50%";
+
+    eaterMouth.style.backgroundColor = "black";
+    eaterMouth.style.justifyContent = "center";
+eaterMouth.style.alignItems = "center";
+    eaterMouth.style.width = "15px";
+    eaterMouth.style.height = "30px";
+    eaterMouth.style.display = "flex";
+    eaterMouth.style.margin = "0 auto";
+    eaterMouth.style.position = "absolute";
+    eaterMouth.style.top = "17px";
+    eaterMouth.style.left = "10px";
+    eaterMouth.style.alignItems = "center";
+    eaterMouth.style.transform = "30deg";
+    
+if(!user1.contains(eaterMouth)) {
+        user1.appendChild(eaterMouth);
+
+}
+    
+
+});
+
+document.addEventListener('mouseup', (e) => {
+    if (!isMoving) return;
+    e.preventDefault();
+    isMoving = false;
+    
+    // Turn mouse detection back on
+
+    
+
+user1.style.removeProperty('background');
+    eaterMouth.style.display = "none";
+    // Calculate how far the mouse moved
+    const movedDistance = Math.hypot(e.clientX - startX, e.clientY - startY);
+
+    const gameArea = gamering.getBoundingClientRect();
+
+    let centerX;
+    let centerY;
+
+let deltaX;
+let deltaY;
+
+     centerX = gameArea.left + (gameArea.width/2);
+  centerY = gameArea.top + (gameArea.height/2);
+
+    const radiusLimit = (gameArea.width / 2) - (user1.offsetWidth / 2);
+    
+    // 3. Calculate distance from the center to the user's cursor
+     deltaX = `${e.clientX - 25}` - centerX;
+     deltaY = `${e.clientY - 25}` - centerY;
+    const distance = Math.hypot(deltaX, deltaY);
+    
+    let targetX, targetY;
+    
+    // 4. THE CLAMP: If the cursor goes out of the circle, lock it to the edge
+    if (distance > radiusLimit) {
+        // Find the angle and multiply by the max allowed radius
+        targetX = centerX + (deltaX / distance) * radiusLimit;
+        targetY = centerY + (deltaY / distance) * radiusLimit;
+    } else {
+        // Otherwise, track the cursor directly
+        targetX = e.clientX;
+        targetY =e.clientY;
+    }
+    
+    // 5. Shift drawing point by half of the user's width to keep touch centered
+    user1.style.left = `${targetX - (user1.offsetWidth / 2)}px`;
+    user1.style.top = `${targetY - (user1.offsetHeight / 2)}px`;
+
+    const inBox = (
+        user.left < gameArea.right &&
+        user.right > gameArea.left &&
+        user.top < gameArea.bottom &&
+        user.bottom > gameArea.top
+    );
+    
+    // Only alert if: 1. In box, 2. Not done yet, 3. The user actually DRAGGED it (> 10px)
+    if(inBox && !sceneDone && movedDistance > 4) {
+        sceneDone = true;
+        
+    };
+
+user1.style.background = "orange";
+
+},{passive: false} );
+
+
+
+
+
+
+
+
+
+clock.style.display = "flex";
+clock.id = "timer-box";
+
+
+home.style.display = "flex";
+
+home.id = "home-icon";
+
+const homeButton = document.createElement("button");
+homeButton.style.opacity = 0;
+homeButton.id = "home-button"
+const homeText = document.createElement("p");
+homeText.id = "home-button-text";
+homeText.textContent = "Home";
+
+
+home.appendChild(homeText);
+home.appendChild(homeButton);
+
+
+
+
+document.body.appendChild(clock);
+document.body.appendChild(home);
+
+homeButton.addEventListener("click", ()=>{
+
+homeButton.formAction = "/intro-screen/homepage.html";
+homeButton.formTarget = "self";
+gameSound.volume = 0;
+home.submit();
+});
+
+
+
+
+
+
+
+function spawnJuice (){
+    if(document.querySelectorAll('.juice, .juice1, .juice2').length >= 1) return;
+
+    const juice = ["juice"];
+
+  const juices = document.createElement("div");
+
+    juice.forEach(type => {
+
+    if(document.querySelectorAll('.juice, .juice1, .juice2').length >= 1) return;
+        
+    juices.classList.add(type);
+
+
+
+
+        const maxWidth = gameBorder.clientWidth - 40; 
+    const maxHeight = gameBorder.clientHeight - 40;
+        
+        const x = Math.floor(Math.random() * maxWidth);
+        const y = Math.floor(Math.random() * maxHeight);
+
+        juices.style.left = x + "px";
+        juices.style.top = y + "px";
+
+    });
+        const directions = [
+            {x: -150, y: 0},
+            {x: 150, y: 0},
+            {x:0, y:-150},
+            {x:0, y:150},
+        ];
+
+const makeRandom = [Math.floor(Math.random() * directions.length)];
+juices.style.transform = `translate(${makeRandom.x}px, ${makeRandom.y}px)`;
+
+
+gameBorder.appendChild(juices);
+
+    
+
+
+
+setTimeout(() => {
+            juices.classList.add('slide-in');
+        }, 10); // Tiny delay so the browser registers the starting position
+
+        // 2. Trigger Slide Out
+        setTimeout(() => {
+            juices.classList.remove('slide-in'); // Slide back to original hidden state
+            
+            // 3. Remove from DOM after slide-out animation finishes
+            setTimeout(() => {
+                if (juices.parentNode) juices.remove();
+            }, 400); 
+        }, 600); // How long the item stays inside the box (1.5 seconds)
+    };
+
+
+
+
+let germMouth;
+
+function spawnGermos(){
+
+    if (gameBorder.querySelectorAll('.germo1, .germo2, .germo3').length >= 7) return;
+    
+    // 1. Count existing germs. If there are 5 or more, STOP and don't spawn more.
+    const germos = ["germo1", "germo2", "germo3", "germo4"];
+    
+    germos.forEach(type => {
+        // Re-check count inside the loop to prevent "batch spawning" past 5
+        if (gameBorder.querySelectorAll('.germo1, .germo2, .germo3').length >= 7)return;
+       const germMouth = document.createElement("div");
+       germMouth.id = "germMouth";
+        const element = document.createElement("div");
+
+
+        element.classList.add(type);
+
+        const maxWidth = gameBorder.clientWidth - 40; 
+    const maxHeight = gameBorder.clientHeight - 40;
+        
+        const x = Math.floor(Math.random() * maxWidth);
+        const y = Math.floor(Math.random() * maxHeight);
+
+        element.style.left = x + "px";
+        element.style.top = y + "px";
+
+
+
+    // 2. Spawn a batch, but stay within the limit
+ 
+        
+        // Ensure they stay within the box boundaries
+
+        const directions = [
+            {x: -150, y: 0},
+            {x: 150, y: 0},
+            {x:0, y:-150},
+            {x:0, y:150},
+        ];
+
+
+const makeRandom = Math.floor(Math.random() * directions.length);
+const randomIndex = directions[makeRandom];
+element.style.transform = `translate(${randomIndex.x}px, ${randomIndex.y}px)`;
+
+
+        element.appendChild(germMouth);
+        gameBorder.appendChild(element);
+        
+
+        // Disappear after 500ms
+        setTimeout(() => {
+            element.classList.add('slide-in');
+        }, 10); // Tiny delay so the browser registers the starting position
+
+        // 2. Trigger Slide Out
+        setTimeout(() => {
+            element.classList.remove('slide-in'); // Slide back to original hidden state
+            
+            // 3. Remove from DOM after slide-out animation finishes
+            setTimeout(() => {
+                if (element.parentNode); element.remove();
+            }, 400); 
+        }, 600); // How long the item stays inside the box (1.5 seconds)
+    });
+}
+
+
+
+
+function spawnFood() {
+
+    if (gameBorder.querySelectorAll('.meal1').length >= 1) return;
+
+
+    const burgers = ["meal1"];
+
+
+    burgers.forEach(type=> {
+
+        if (gameBorder.querySelectorAll('.meal1').length >= 1) return;
+
+const burger = document.createElement("div");
+burger.classList.add(type);
+
+
+burger.style.visibility = "visible";
+burger.style.position = "absolute";
+
+
+        const maxWidth = gameBorder.clientWidth - 40; 
+    const maxHeight = gameBorder.clientHeight - 40;
+        
+        const x = Math.floor(Math.random() * maxWidth);
+        const y = Math.floor(Math.random() * maxHeight);
+
+        burger.style.left = x + "px";
+        burger.style.top = y + "px";
+
+
+
+    // 2. Spawn a batch, but stay within the limit
+ 
+        
+        // Ensure they stay within the box boundaries
+
+        const directions = [
+            {x: -150, y: 0},
+            {x: 150, y: 0},
+            {x:0, y:-150},
+            {x:0, y:150},
+        ];
+
+const makeRandom = [Math.floor(Math.random() * directions.length)];
+burger.style.transform = `translate(${makeRandom.x}px, ${makeRandom.y}px)`;
+
+
+gameBorder.appendChild(burger);
+
+setTimeout(() => {
+            burger.classList.add('slide-in');
+        }, 10); // Tiny delay so the browser registers the starting position
+
+        // 2. Trigger Slide Out
+        setTimeout(() => {
+            burger.classList.remove('slide-in'); // Slide back to original hidden state
+            
+            // 3. Remove from DOM after slide-out animation finishes
+            setTimeout(() => {
+                if (burger.parentNode) burger.remove();
+            }, 400); 
+        }, 600); // How long the item stays inside the box (1.5 seconds)
+    });
+}
+
+
+
+let germoInterval;
+
+
+    function startCount() {
+    
+
+        gameSound.currentTime = 0;
+                gameSound.play();
+                gameSound.loop = 1;
+               
+
+gameDuration = 60 * 1000; 
+ endTime = new Date().getTime() + gameDuration;
+
+juiceInterval = setInterval(spawnJuice, 1000);
+    germoInterval = setInterval(spawnGermos, 1000);
+    foodInterval = setInterval(spawnFood, 1000);
+
+const timer = setInterval (()=> {
+    
+
+    handleGerms();
+
+const startTime = new Date().getTime();
+  distance = endTime - startTime;
+ const actualStartTime = Date.now();
+const currentTime = new Date().getTime();
+ const timePassed = Math.floor((currentTime - actualStartTime) / 1000);
+
+
+
+
+
+
+const percentage = Math.max(0, (distance / gameDuration) * 100);
+
+
+    
+if(isMoving) {
+user1.style.animationName = "none";
+user1.style.setProperty('background', 'orange', 'important');
+
+} else {
+    user1.style.animationDuration = "15s"
+    user1.style.removeProperty('background');
+user1.style.setProperty('--orbit', `${percentage}%`);
+}
+
+const totalSeconds = Math.floor(distance / 1000);
+const minutes = Math.floor(totalSeconds / 60);
+const seconds = totalSeconds % 60;
+
+if (percentage <=75 && percentage > 50) {
+    user1.style.animationName = "eaterHealthThreeQrt";
+    user1.style.animationDuration = "15s";
+}
+
+
+if (percentage <=50 && percentage > 25) {
+    user1.style.animationName = "eaterHealthHlf";
+    user1.style.animationDuration = "15s";
+}
+
+if (percentage <=25 && percentage > 0) {
+    user1.style.animationName = "eaterHealthQrt";
+    user1.style.animationDuration = "15s";
+}
+
+if(distance >= 0) {
+    clock.innerText = `${minutes}:${seconds <10  ? '0' : ''}${seconds} `;
+}
+
+let juiceSpawns = true;
+
+
+let germsAgain = true;
+if(totalSeconds >= 30 && germsAgain && juiceSpawns) {
+    gamering.style.width = "400px";
+gamering.style.height = "350px";
+gamering.style.transition = "all 2s ease" ;
+germsAgain = true;
+juiceSpawns = true;
+document.querySelectorAll(".juice",".juice1",".juice2").forEach(juices=>juices.remove());
+}
+
+
+
+
+    if(totalSeconds <= 30 && juiceSpawns ) {
+gamering.style.width = "900px";
+gamering.style.height = "400px";
+gamering.style.transition = "all 2s ease";
+document.querySelectorAll('.germo1, .germo2, .germo3, .germo4').forEach(germo=>germo.remove());
+germsAgain = false;
+juiceSpawns = false;
+    
+once:true
+if(setTimeout(()=> {
+
+    spawnJuice();
+
+    }, 1000 )
+)
+once:true;
+    if(setTimeout(()=> {
+spawnJuice();
+},2500 )
+);
+    }
+    
+
+    
+
+
+
+
+
+
+if (distance <= 0 && removeGameSound) {
+    
+ const juice = document.querySelectorAll('.juice').forEach(juice=>juice.remove());
+
+const meal = document.querySelectorAll('.meal1').forEach(meal1=>meal1.remove());
+
+
+const germo = document.querySelectorAll('.germo1, .germo2, .germo3').forEach(germo=>germo.remove());
+ clearInterval(juiceInterval);
+   clearInterval(foodInterval);
+   clearInterval(germoInterval);
+
+
+clearInterval(timer);
+clock.innerText = "0:00";
+gameSound.volume = 0;
+const gameEndSound  = new Audio('PacMan Death - Sound Effect HD.mp3');
+gameEndSound.currentTime = 0;
+gameEndSound.play();
+gameEndWindow.action = 'http://127.0.0.1:5500/mechanics/realgame.html?';
+ gameEndWindow.target = '_self';
+ gameEndWindow.method = 'get';
+gameEndWindow.style.border = "2px solid white";
+ gameEndWindow.style.display = "flex";
+ gameEndWindow.style.flexDirection = "column";
+ gameEndWindow.style.textAlign = "center";
+ gameEndWindow.style.margin = "0 auto";
+ gameEndWindow.style.justifyContent = "center";
+ gameEndWindow.style.alignSelf = "center";
+ gameEndWindow.style.alignItems = "center";
+ gameEndWindow.style.width = "500px";
+ gameEndWindow.style.height = "150px";
+ gameEndWindow.style.backgroundColor = "plum";
+ gameEndWindow.style.position = "fixed"; 
+gameEndWindow.style.top = "50%";
+gameEndWindow.style.left = "50%";
+ gameEndWindow.style.transform = "translate(-50%, -50%)";
+ gameEndWindow.id = "game-over-screen";
+
+
+ gameEndWindow.style.zIndex = "1000";
+ gameEndScript.textContent = "Looks like you died press restart to play again!";
+gameEndScript.style.fontSize = "20px";
+gameEndScript.style.color = "black";
+
+gameEndScript.style.position = "inherit";
+
+
+gameEndScript.style.margin = "inherit";
+
+gameEndScript.style.padding = "40px";
+
+gameend.style.margin ="0 auto";
+
+gameend.style.position ="inherit";
+
+gameend.style.top ="110px";
+gameend.style.cursor = "pointer";
+gameend.style.backgroundColor = "azure"
+gameend.style.padding = "10px 20px";
+gameend.type = "submit";
+gameend.innerText = "Restart";
+gameend.style.color = "black "
+
+gameend.id = "game-over";
+
+
+gameEndWindow.appendChild(gameEndScript);
+gameEndWindow.appendChild(gameend); 
+document.body.appendChild(gameEndWindow);
+
+user1.style.setProperty('--orbit', '0%');
+removeGerms = false;
+user1.style.display = "none"; 
+removeGameSound = false;  
+
+
+}
+
+
+}, 100 );
+
+
+localStorage.removeItem("gameSurvivalRecord");
+
+let personalRec = Number(localStorage.getItem("gameSurvivalRecord")) || 6000;
+let realGameStartTime = Date.now();
+// 1. Declare this globally so your start function can access it later
+
+let actualStartTime = Date.now();
+
+
+// 2. CALL THIS FUNCTION WHEN YOUR GAME ACTUALLY STARTS
+function startGame() {
+    realGameStartTime = Date.now(); // Records the exact start time in milliseconds
+    console.log(`Game starts now, high score to beat is ${personalRec} seconds`);
+};
+
+
+function formatMilliseconds(ms){
+
+const totalSeconds = Math.floor(ms /1000);
+const minutes = Math.floor(totalSeconds/60);
+const seconds = totalSeconds % 60;
+return `${minutes}:${String(seconds)}`;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+gameend.addEventListener("click", (e) => {
+
+
+    e.preventDefault();
+    // 3. Grab the EXACT current time right now at the moment of the click
+    const currentTime = new Date().getTime();
+
+
+    const timePassed = currentTime - realGameStartTime;
+
+
+
+    
+    const formattedPlayerTime = formatMilliseconds(timePassed);
+    
+
+    const formattedRecordTime = formatMilliseconds(personalRec);
+
+    
+
+    recordWindow.action = 'http://127.0.0.1:5500/mechanics/realgame.html?';
+    recordWindow.target = '_self';
+    recordWindow.method = 'get';
+    recordWindow.style.border = "2px solid red";
+    recordWindow.style.display = "flex";
+    recordWindow.style.flexDirection = "column";
+    recordWindow.style.textAlign = "center";
+    recordWindow.style.margin = "0 auto";
+    recordWindow.style.justifyContent = "center";
+    recordWindow.style.alignSelf = "center";
+    recordWindow.style.pointerEvents = "none";
+    recordWindow.style.alignItems = "center";
+    recordWindow.style.width = "500px";
+    recordWindow.style.height = "150px";
+    recordWindow.style.backgroundColor = "white";
+    recordWindow.style.position = "fixed"; 
+    recordWindow.style.top = "50%";
+    recordWindow.style.left = "50%";
+    recordWindow.style.padding = "10px";
+    recordWindow.style.transform = "translate(-50%, -50%)";
+    recordWindow.id = "game-over-screen";
+    recordScript.style.display = "flex";
+    recordScript.style.pointerEvents = "none";
+recordScript.style.content = `Hey, you just set a new personal record of ${formattedPlayerTime} seconds!`;
+
+    recordWindow.style.zIndex = "1000";
+ recordScript.style.fontSize = "20px";
+ recordScript.style.fontFamily = "Times New Roman', Times, serif";
+ recordScript.style.color = "black";
+
+ recordScript.style.position = "inherit";
+
+
+ recordScript.style.margin = "inherit";
+
+ recordScript.style.padding = "40px";
+
+ recordScript.appendChild(recordWindow);
+ document.body.appendChild(recordWindow);
+
+    // Logging this to your browser console helps you debug instantly
+    console.log(`Time passed: ${formattedPlayerTime}s | Record to beat: ${formattedRecordTime}s`);
+
+    if (timePassed > personalRec) {
+        recordScript.textContent = `Hey, you just set a new personal record of ${formattedPlayerTime} seconds!`;
+        localStorage.setItem("gameSurvivalRecord", personalRec);
+       
+    recordScript.textContent =  `Game Over! You survived for ${formattedPlayerTime} seconds. The record remains ${formattedRecordTime} seconds.`;
+
+    }
+    
+
+
+
+
+
+recordWindow.appendChild(recordScript);
+document.body.appendChild(recordWindow);
+
+
+setTimeout(() =>{
+    gameEndWindow.submit();
+}, 4000 );
+
+    });
+
+}
+
+
+    
+
+
+
+
+
+function isColliding(a, b) {
+    const aRect = a.getBoundingClientRect();
+    const bRect = b.getBoundingClientRect();
+
+return ! (
+    aRect.top > bRect.bottom ||
+    aRect.bottom < bRect.top ||
+    aRect.left > bRect.right ||
+    aRect.right < bRect.left 
+);
+
+
+}
+
+let lastHit = 0;
+const CoolDownPeriod = 1000;
+
+function handleGerms() {
+    const now = Date.now();
+
+    const germos = document.querySelectorAll('.germo1, .germo2, .germo3');
+    
+    germos.forEach(germo => {
+    if (germo.style.display !== "none" && isColliding(user1, germo)) {
+      
+        if (now - lastHit > CoolDownPeriod) {
+        chompSound.play();
+        user1.style.setProperty('--orbit', `${percentage}%`);
+        endTime = endTime - 5000;
+         lastHit = now;
+        user1.classList.add('damage-flash');
+        setTimeout(() =>user1.classList.remove('damage-flash'), 100);
+    }
+    
+}
+if (germo.style.display !== "none" && isColliding(user1, germo)) {
+    PopSound.play();
+
+germo.classList.add('germ-xplode');
+
+setTimeout(() => {
+    germo.style.display = "none";
+
+    germo.classList.remove('germ-xplode');
+
+}, 400);
+
+}
+
+});
+
+
+    // Check Juices (Remove the 'return' from above)
+    const juices = document.querySelectorAll('.juice');
+    juices.forEach(juice => {
+        if (juice.style.display !== "none" && isColliding(user1, juice)) {
+            gulpSound.play();
+            juice.style.display = "none";
+            endTime = Math.min(endTime + 20000, Date.now() + 60000);
+        }
+    });
+
+    // Check Meals
+    const meals = document.querySelectorAll('.meal1');
+    meals.forEach(meal => {
+        if (meal.style.display !== "none" && isColliding(user1, meal)) {
+            chompSound.play();
+            meal.style.display = "none";
+            endTime = Math.min(endTime + 1000, Date.now() + 60000);
+        }
+    });
+}
+
+
+
+
+const audio = document.getElementById("game");
+const gameVolume = document.getElementById("game-volume-rangebar");
+const progress = document.getElementById('volume-progress');
+const volumeLine = document.createElement("div");
+
+volumeLine.style.border = "1px solid black";
+volumeLine.style.height = "1px";
+volumeLine.style.width = "130px";
+volumeLine.style.top = "5px";
+volumeLine.style.right = "30px";
+volumeLine.style.position = "relative";
+volumeLine.style.backgroundColor = "black";
+volumeLine.style.display = "flex";
+volumeLine.style.borderRadius = "10%";
+
+
+
+const min = parseFloat(gameVolume.getAttribute('aria-valuemin'));
+const max = parseFloat(gameVolume.getAttribute('aria-valuemax'));
+
+
+function updateVolume(pixelX) {
+    const rect = gameVolume.getBoundingClientRect();
+
+
+
+let percentageAud = (pixelX - rect.left) / rect.right;
+percentageAud = Math.max(0, Math.min(1, percentageAud));
+
+const currentVals = Math.round(min + (percentageAud * (max-min)));
+progress.setAttribute('aria-valuenow', currentVals);
+progress.style.width = `${percentageAud * 80}%`;
+
+gameSound.volume = percentageAud;
+} 
+
+document.body.appendChild(volumeLine);
+gameVolume.appendChild(volumeLine);
+
+
+
+gameVolume.addEventListener("click", (e)=> {
+
+updateVolume(e.clientX);
+
+});
+
+
+
+</script>
+
+</html>
+
+

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="connect-src 'self' http://127.0.0.1:5500/intro-screen/game.html;"
+    />
+    <title>Intro</title>
+
+    <link rel="stylesheet" href="/intro-screen/homepgmobile.css" />
+  </head>
+  <body>
+    <div class="spinner-3d"><div id="light-point"></div></div>
+
+    <div class="spinner2-3d"><div id="light-point2"></div></div>
+
+    <div class="spinner3-3d"><div id="light-point3"></div></div>
+
+    <div id="title-wrapper">
+      <h1 class="game-title">SharpeBros</h1>
+    </div>
+
+    <div id="user" draggable="true"><div class="eater"></div></div>
+    <div id="germ"></div>
+
+    <a id="intro-demo-tap" href="/mechanics/gameplaymobile.html">Start Demo</a>
+    <p>Or</p>
+    <a id="intro-game-tap" href="/mechanics/gamemobile.html"
+      >Tap here to Play!</a
+    >
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").then((reg) => {
+            reg
+              .update()
+              .then((reg) => console.log("Service Worker registered!", reg))
+              .catch((err) => console.err("Registration failed:", err));
+          });
+        });
+      }
+
+      const gameTitle = document.querySelector(".game-title");
+
+      const linkDemo = document.getElementById("intro-demo-tap");
+      const linkGame = document.getElementById("intro-game-tap");
+
+      linkDemo.addEventListener("click", (e) => {
+        if (e.target === "a") {
+          linkDemo.style.textDecorationColor = "rosybrown";
+        } else {
+          linkDemo.style.color = "antiquewhite";
+          linkDemo.style.textDecorationColor = "antiquewhite";
+          linkDemo.style.textDecorationLine = "none";
+        }
+      });
+
+      linkGame.addEventListener("click", (e) => {
+        const gameSoundIntro = new Audio("gameSoundFin.mp3");
+
+        gameSoundIntro.currentTime = 0;
+        gameSoundIntro.play();
+        gameSoundIntro.loop = 1;
+        if (e.target === "a") {
+          linkGame.style.textDecorationColor = "rosybrown";
+        } else {
+          linkGame.style.color = "antiquewhite";
+          linkGame.style.textDecorationColor = "antiquewhite";
+          linkGame.style.textDecorationLine = "none";
+        }
+      });
+
+      gameTitle.addEventListener("click", () => {
+        const isDefault = gameTitle.classList.toggle("default");
+
+        if (isDefault) {
+          gameTitle.style.rotate = "360deg";
+          gameTitle.style.skew = "60deg";
+
+          gameTitle.style.animationPlayState = "paused";
+        } else {
+          gameTitle.style.rotate = "0deg";
+          gameTitle.style.skew = "0deg";
+
+          gameTitle.style.animationPlayState = "running";
+        }
+      });
+    </script>
+  </body>
+</html>
