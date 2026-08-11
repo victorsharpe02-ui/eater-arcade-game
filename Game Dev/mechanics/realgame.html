@@ -358,6 +358,54 @@ transform: translate(0, 0) rotate(360) !important;
     
     }
 
+       #mobile-mode {
+    display: flex;
+      border: 1px solid white;
+      border-radius: 50%;
+    background-color:  rgb(255, 255, 0);
+    color: white;
+    width: 60px;
+    height: 55px;
+
+    top: 500px;
+    right: 80px;
+    position: relative;
+    
+    }
+
+      
+#mobile-mode:hover {
+  display: flex;
+border:  2px solid white;
+}
+
+      #mobile-button-text {
+
+  display: flex;
+  position: relative;
+  color: white;
+
+  justify-content: center;    
+  align-content: center;
+  vertical-align: center;
+  margin: 0 auto;
+  top: 18px;
+  right: 3px;
+  }
+
+      
+
+    #mobile-button {
+
+display: flex;
+position: absolute;
+right: 5px;
+width: 55px;
+height: 35px;
+top: 10px;
+
+}
+      
     #home-button {
 
 display: flex;
@@ -509,6 +557,7 @@ border-radius: 10%;
 const user1 = document.getElementById("user");
 const clock = document.createElement("div");
 const home = document.createElement("form");
+const mobile = document.createElement("button");
 
 
 
@@ -695,11 +744,25 @@ clock.style.display = "flex";
 clock.id = "timer-box";
 
 
+    mobile.id = "mobile-mode";
+mobile.style.display = "flex";
+const mobileButton = document.createElement("button");
+mobilebutton.style.opacity = 0;
+mobileButton.id = "mobile-button"
+const mobileText = document.createElement("p");
+mobileText.id = "mobile-button-text";
+mobileText.textContent = "Mobile";
+
+
+mobile.appendChild(mobileText);
+mobile.appendChild(mobileButton);
+  
 home.style.display = "flex";
 
 home.id = "home-icon";
 
 const homeButton = document.createElement("button");
+  
 homeButton.style.opacity = 0;
 homeButton.id = "home-button"
 const homeText = document.createElement("p");
@@ -715,10 +778,20 @@ home.appendChild(homeButton);
 
 document.body.appendChild(clock);
 document.body.appendChild(home);
+  document.body.appendChild(mobile);
 
+
+
+  mobileButton.addEventListener("click", ()=>{
+
+mobileButton.formAction = "https://victorsharpe02-ui.github.io/eater-arcade-game/Game%20Dev/mechanics/gamemobile.html";
+mobileButton.formTarget = "self";
+mobile.submit();
+    
+});
 homeButton.addEventListener("click", ()=>{
 
-homeButton.formAction = "/intro-screen/homepage.html";
+homeButton.formAction = "https://victorsharpe02-ui.github.io/eater-arcade-game/Game%20Dev/intro-screen/homepage.html";
 homeButton.formTarget = "self";
 gameSound.volume = 0;
 home.submit();
